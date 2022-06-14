@@ -16,14 +16,26 @@ function loadResultGif() {
             console.log(data);
             let content = JSON.parse(data.responseText);
             console.log(content);
+            //let img = document.createElement("img");
+            //let images = [];
+            for(var i=0; i<content.length; i++){
+            console.log(content.length);
             let img = document.createElement("img");
-            img.src = content[0].url;
-            console.log(content[0].url);
-            img.height = 500;
-            img.width = 500;
-            let out = document.querySelector("#out");
-            //out.innerHTML = '';
+                img.src = content[i].url;
+                //images[i]=img;
+                console.log(content[i].url);
+                img.height = 300;
+                img.width = 300;
             out.insertAdjacentElement("afterbegin", img);
+//            sleep(100);
+//            out.innerHTML = '';
+            }
+
+
+
+            //let out = document.querySelector("#out");
+            //out.innerHTML = '';
+            //out.insertAdjacentElement("afterbegin", img);
         }
     })
 }
@@ -38,7 +50,7 @@ function loadForSelect() {
             console.log(codesList);
             let select = document.querySelector("#codesSelector");
             select.innerHTML = '';
-            for (let i = 0; i < codesList.length; i++) {
+            for (let i = codesList.length-1; i >= 0; i--) {
                 let option = document.createElement("option");
                 option.value = codesList[i];
                 option.text = codesList[i];
