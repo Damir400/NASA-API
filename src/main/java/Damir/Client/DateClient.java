@@ -17,7 +17,7 @@ public interface DateClient {
 
 
     @GetMapping( "/api/enhanced/date/{date}")  //
-    ResponseEntity<Map> getEPIC(
+    ResponseEntity<List<Map>> getEPIC(
             @PathVariable(value = "date") String date
     );
 }

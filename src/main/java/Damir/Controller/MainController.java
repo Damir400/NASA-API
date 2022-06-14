@@ -30,8 +30,14 @@ public class MainController {
         return nasaService.getDate();
     }
 
-    @GetMapping("/epic/{date}")
-    public ResponseEntity<Map>getEPIC(@PathVariable(value = "date") String date){
+//    //https://epic.gsfc.nasa.gov/api/enhanced/date/2020-10-31
+//    @GetMapping("/epic/{coderates}") //
+//    public ResponseEntity<Map> getEPIC(@PathVariable(value = "coderates") String date){
+//        return nasaService.getEPIC(date);
+//    }
+    //https://epic.gsfc.nasa.gov/api/enhanced/date/2020-10-31
+    @GetMapping("/epic/{date}") //
+    public ResponseEntity<List<Map>> getEPIC(@PathVariable(value = "date") String date){
         return nasaService.getEPIC(date);
     }
 

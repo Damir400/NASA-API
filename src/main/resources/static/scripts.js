@@ -17,9 +17,12 @@ function loadResultGif() {
             let content = JSON.parse(data.responseText);
             console.log(content);
             let img = document.createElement("img");
-            img.src = content.image;
+            img.src = content[0].url;
+            console.log(content[0].url);
+            img.height = 500;
+            img.width = 500;
             let out = document.querySelector("#out");
-            out.innerHTML = '';
+            //out.innerHTML = '';
             out.insertAdjacentElement("afterbegin", img);
         }
     })
@@ -32,6 +35,7 @@ function loadForSelect() {
         method: 'GET',
         complete: function (data) {
             let codesList = JSON.parse(data.responseText);
+            console.log(codesList);
             let select = document.querySelector("#codesSelector");
             select.innerHTML = '';
             for (let i = 0; i < codesList.length; i++) {

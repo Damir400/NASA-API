@@ -37,8 +37,24 @@ public class NasaService {
         return result;
     }
 
-    public ResponseEntity<Map> getEPIC(String date){                           // EPIC = Earth Polychromatic Imaging Camera
-        ResponseEntity<Map> result = dateClient.getEPIC(date);
+//    public ResponseEntity<Map> getEPIC(String date){                           // EPIC = Earth Polychromatic Imaging Camera
+//        ResponseEntity<Map> result = dateClient.getEPIC(date);
+//        return result;
+//    }
+
+    public ResponseEntity<List<Map>> getEPIC(String date){                           // EPIC = Earth Polychromatic Imaging Camera
+        ResponseEntity<List<Map>> result = dateClient.getEPIC(date);
+        List<Map> responseBody=result.getBody();
+        for( int i=0; i<responseBody.size(); i++){
+            // https://api.nasa.gov/EPIC/archive/enhanced/2022/06/12/png/epic_RGB_20220612010436.png?api_key=DEMO_KEY
+            // https://api.nasa.gov/EPIC/archive/enhanced/2022/06/06/png/epic_RGB_20220612010436.png?api_key=DEMO_KEY
+
+         StringBuilder stringBuilder = new StringBuilder("https://api.nasa.gov/EPIC/archive/enhanced/");
+         stringBuilder.append(date.replace('-','/'));
+         stringBuilder.append("/png/"+ responseBody.get(i).get("image")+ ".png");
+         stringBuilder.append("?api_key=DEMO_KEY");
+        responseBody.get(i).put("url",stringBuilder);
+        }
         return result;
     }
 
