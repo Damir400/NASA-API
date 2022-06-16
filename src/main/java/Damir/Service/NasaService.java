@@ -52,7 +52,7 @@ public class NasaService {
          StringBuilder stringBuilder = new StringBuilder("https://api.nasa.gov/EPIC/archive/enhanced/");
          stringBuilder.append(date.replace('-','/'));
          stringBuilder.append("/png/"+ responseBody.get(i).get("image")+ ".png");
-         stringBuilder.append("?api_key=DEMO_KEY");
+         stringBuilder.append("?api_key=XvASfaPmdD3X98CazMKJpgeKBSsdZVpRF8PxIhE9");
         responseBody.get(i).put("url",stringBuilder);
         }
         return result;
