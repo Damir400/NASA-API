@@ -3,17 +3,11 @@ let imagesUrls = [];
 let imagesItems = [];
 let imagesLoaded = 0;
 
-
-
 function waiter(){
   let gifWaiter = new Image();
   gifWaiter.src = "/images/waitLoader.gif";
   document.body.appendChild(gifWaiter);
-
 }
-
-
-
 
 function createGif() {
  for (const item of imagesUrls) {
@@ -24,22 +18,17 @@ function createGif() {
   img.src = item.url;
   imagesItems.push(img);
  }
-
-
 }
 
-// для получения гифки которая будет обраюатываться rest controller
 async function loadResultGif() {
 imagesLoaded = 0;
 imagesUrls = [];
   imagesItems = [];
   document.querySelector('img')?.remove();
  waiter();
-    let code = $("#codesSelector").val(); //получает выбранный option из select`а.
+    let code = $("#codesSelector").val(); 
  const result = await (await fetch('./api/epic/' + code)).json();
- imagesUrls.push(...result);
-
- 
+ imagesUrls.push(...result); 
  createGif();
 }
 
@@ -55,11 +44,7 @@ async function loadForSelect() {
   select.insertAdjacentElement("beforeend", option);
  }
 }
-
 window.onload = loadForSelect;
-
-
-
 
  let changeIndex = 0;
 
