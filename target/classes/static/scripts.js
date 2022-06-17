@@ -5,7 +5,7 @@ let imagesLoaded = 0;
 
 function createGif() {
  for (const item of imagesUrls) {
-  let img = new Image(600,600);
+  let img = new Image(500,500);
   img.onload = function() {
    imagesLoaded++;
 }
@@ -24,7 +24,7 @@ function createGif() {
     i = 0;
    }
   }
- }, 150)
+ }, 125)
 }
 
 // для получения гифки которая будет обраюатываться rest controller
