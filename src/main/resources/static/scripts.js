@@ -1,7 +1,19 @@
 //Отправляет запрос для получения гифки.
-const imagesUrls = [];
-const imagesItems = [];
+let imagesUrls = [];
+let imagesItems = [];
 let imagesLoaded = 0;
+
+
+
+function waiter(){
+  let gifWaiter = new Image();
+  gifWaiter.src = "/images/waitLoader.gif";
+  document.body.appendChild(gifWaiter);
+
+}
+
+
+
 
 function createGif() {
  for (const item of imagesUrls) {
@@ -13,26 +25,21 @@ function createGif() {
   imagesItems.push(img);
  }
 
- let i = 1;
 
- setInterval(() => {
-  if (imagesLoaded == imagesUrls.length) {
-   document.querySelector('img')?.remove();
-   document.body.appendChild(imagesItems[i]);
-   i++;
-   if(i === imagesUrls.length) {
-    i = 0;
-   }
-  }
- }, 125)
 }
 
 // для получения гифки которая будет обраюатываться rest controller
 async function loadResultGif() {
+imagesLoaded = 0;
+imagesUrls = [];
+  imagesItems = [];
+  document.querySelector('img')?.remove();
+ waiter();
     let code = $("#codesSelector").val(); //получает выбранный option из select`а.
  const result = await (await fetch('./api/epic/' + code)).json();
  imagesUrls.push(...result);
 
+ 
  createGif();
 }
 
@@ -50,3 +57,19 @@ async function loadForSelect() {
 }
 
 window.onload = loadForSelect;
+
+
+
+
+ let changeIndex = 0;
+
+ setInterval(() => {
+  if (imagesLoaded == imagesUrls.length && imagesLoaded > 0) {
+   document.querySelector('img')?.remove();
+   document.body.appendChild(imagesItems[changeIndex]);
+   changeIndex++;
+   if(changeIndex === imagesUrls.length) {
+    changeIndex = 0;
+   }
+  }
+ }, 100)
