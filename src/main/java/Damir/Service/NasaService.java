@@ -1,9 +1,6 @@
 package Damir.Service;
 
-// APOD - астрономическая карта дня
-
 import Damir.Client.DateClient;
-import Damir.Client.NasaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +13,15 @@ import java.util.Map;
 @Service
 public class NasaService {
 
-    private NasaClient nasaClient;
     private DateClient dateClient;
     @Value("${api.key}")
     private String nasaKey;
+    @Value("${epic.url}")
+    private String epicUrl;
 
     @Autowired
-    public NasaService(NasaClient nasaClient, DateClient dateClient) {
-        this.nasaClient = nasaClient;
+    public NasaService(DateClient dateClient) {
         this.dateClient = dateClient;
-    }
-
-    public ResponseEntity<Map> getAPOD(){                           // APOD = Astronomy Picture of the Day
-        ResponseEntity<Map> result = nasaClient.getAPOD(nasaKey);
-        return result;
     }
 
     public List<String> getDate(){                                  // получение дат, по которым есть данные
@@ -37,33 +29,16 @@ public class NasaService {
         return result;
     }
 
-//    public ResponseEntity<Map> getEPIC(String date){                           // EPIC = Earth Polychromatic Imaging Camera
-//        ResponseEntity<Map> result = dateClient.getEPIC(date);
-//        return result;
-//    }
-
-    public ResponseEntity<List<Map>> getEPIC(String date){                           // EPIC = Earth Polychromatic Imaging Camera
-        ResponseEntity<List<Map>> result = dateClient.getEPIC(date);
-        List<Map> responseBody=result.getBody();
+    public ResponseEntity<List<Map>> getEPIC(String date){                          // EPIC = Earth Polychromatic Imaging Camera
+        ResponseEntity<List<Map>> result = dateClient.getEPIC(date);                //Из полученного ответа вытаскиваем все доступные названия картинок
+        List<Map> responseBody=result.getBody();                                    //после чего собираем составные ссылки для получения картинок
         for( int i=0; i<responseBody.size(); i++){
-            // https://api.nasa.gov/EPIC/archive/enhanced/2022/06/12/png/epic_RGB_20220612010436.png?api_key=DEMO_KEY
-            // https://api.nasa.gov/EPIC/archive/enhanced/2022/06/06/png/epic_RGB_20220612010436.png?api_key=DEMO_KEY
-
-         StringBuilder stringBuilder = new StringBuilder("https://api.nasa.gov/EPIC/archive/enhanced/");
+         StringBuilder stringBuilder = new StringBuilder(epicUrl);
          stringBuilder.append(date.replace('-','/'));
          stringBuilder.append("/png/"+ responseBody.get(i).get("image")+ ".png");
-         stringBuilder.append("?api_key=XvASfaPmdD3X98CazMKJpgeKBSsdZVpRF8PxIhE9");
+         stringBuilder.append("?api_key=" + nasaKey);
         responseBody.get(i).put("url",stringBuilder);
         }
         return result;
     }
-
-//
-//    public ResponseEntity<Map> getMarsPhotos(){                           // Mars Rover Photos
-//        ResponseEntity<Map> result = nasaClient.getMarsPhotos(nasaKey);
-//
-//        return result;
-//    }
-
-
 }
