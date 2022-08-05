@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>NASA API</title>
+    <link rel="stylesheet" href="./src/main/resources/static/style.css">
+    <script src="./src/main/resources/static/nasa.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+    
+</head>
+<body class="bodystyle">
+
+    <div>
+        <h1 class="hstyle">Выберите дату для отображения фотографий Земли.</h1>
+        <h2 class="hstyle" > Для большей наглядности полученные изображения объеденены в Gif.</h2>
+        <select class="selectsyle" id="datesSelector" ></select>
+        <p> </p>
+        <button type="button" onclick='loadResultGif()' class="btn">Получить gif</button>
+        <p> </p>
+        <div id="out" ></div>
+    </div>
+
+</body>
+
+</html>

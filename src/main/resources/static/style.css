@@ -1,6 +1,6 @@
 .bodystyle{
 	text-align: center;
-	background-image: url(/images/backLogo.jpg);
+	background-image: url(./images/backLogo.jpg);
     background-size: 100%;
     background-position: top;
 }
@@ -82,5 +82,5 @@
   	opacity: 1;
   	transform: scale(1, 1);
 }
-}
+
 
